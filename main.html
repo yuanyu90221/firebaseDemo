@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Firebase Demo</title>
+		<meta charset="utf-8">
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+		<script>
+		  // Initialize Firebase
+		  counter = 3;
+		  var config = {
+		    apiKey: "AIzaSyB0-seHrVe153wFhS-EIUbJQCHLBmuzO0s",
+		    authDomain: "webfirebasedb.firebaseapp.com",
+		    databaseURL: "https://webfirebasedb.firebaseio.com",
+		    storageBucket: "webfirebasedb.appspot.com",
+		    messagingSenderId: "1073692172194"
+		  };
+		  firebase.initializeApp(config);
+		  var defaultDatabase = firebase.database();
+		  $(document).ready(function(){
+	          $("#addUser").on("submit", function(e){
+	          	e.preventDefault();
+	          });
+	          getUserDataFromRemote();
+	          $("#send").on("click", function(){
+	          		alert("send");
+	          		var userName = $("[name=username]").val();
+	          		var age = $("[name=age]").val();
+	          		var job = $("[name=job]").val();
+	          		console.log("userName:",userName,", age:",age,",job=",job);
+	          		writeUserData(counter++,userName, age, job);
+	          		getUserDataListFromRemote();
+	          });
+	          function writeUserData(userId, name, age, job) {
+	          	console.log("userId: ",userId);
+				 firebase.database().ref('users/' + userId).set({
+				    username: name,
+				    age: age,
+				    job: job
+				});
+			  }
+			  function getUserDataFromRemote(){
+			  	var userId = 4;
+			  	return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot){
+			  		console.log(snapshot.val());
+			  	});
+			  }
+			  function getUserDataListFromRemote(){
+			  	return firebase.database().ref('users/').once('value', function(snapshot){
+			  		snapshot.forEach(function(childSnapshot){
+			  			console.log("childSnapshot");
+			  			console.log(childSnapshot.getKey());
+			  			// var childKey = childSnapshot.key();
+			  			// console.log("childKey: " , childKey);
+			  			var childData = childSnapshot.val();
+			  			console.log("childData: ");
+			  			console.log(childData);
+			  		});
+			  	});
+			  }
+		  });
+		</script>
+	</head>
+	<body>
+		<form id="addUser">
+			<label>Username</label>
+			<input type="text" name="username"/><br/>
+			<label>age</label>
+			<input type="number" name="age"/><br/>
+			<label>job</label>
+			<input type="text" name="job"/><br/>
+			<button id="send">submit</button>
+		</form>
+	</body>
+</html>
