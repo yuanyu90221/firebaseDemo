@@ -25,7 +25,7 @@
 	          $("#send").on("click", function(){
 	          		alert("send");
 	          		var userName = $("[name=username]").val();
-	          		var age = $("[name=age]").val();
+	          		var age = Number($("[name=age]").val());
 	          		var job = $("[name=job]").val();
 	          		console.log("userName:",userName,", age:",age,",job=",job);
 	          		writeUserData(counter++,userName, age, job);
