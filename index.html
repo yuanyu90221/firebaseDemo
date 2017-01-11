@@ -3,7 +3,12 @@
 	<head>
 		<title>Firebase Demo</title>
 		<meta charset="utf-8">
-		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="./assets/jquery/dist/jquery.js"></script>
+		<link rel="stylesheet" type="text/css" href="./assets/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="./assets/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="./assets/bootstrap/dist/css/bootstrap-theme.css"/>
+		<link rel="stylesheet" type="text/css" href="./assets/bootstrap/dist/css/bootstrap-theme.min.css"/>
+		<script src="./assets/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
 		<script>
 		  // Initialize Firebase
@@ -60,14 +65,14 @@
 		</script>
 	</head>
 	<body>
-		<form id="addUser">
+		<form class="container" id="addUser">
 			<label>Username</label>
 			<input type="text" name="username"/><br/>
 			<label>age</label>
 			<input type="number" name="age"/><br/>
 			<label>job</label>
 			<input type="text" name="job"/><br/>
-			<button id="send">submit</button>
+			<div class="btn btn-success" id="send">submit</div>
 		</form>
 	</body>
 </html>
