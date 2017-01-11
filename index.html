@@ -13,6 +13,7 @@
 		<script>
 		  // Initialize Firebase
 		  counter = 3;
+		  autoGenKey = false;
 		  var config = {
 		    apiKey: "AIzaSyB0-seHrVe153wFhS-EIUbJQCHLBmuzO0s",
 		    authDomain: "webfirebasedb.firebaseapp.com",
@@ -22,7 +23,10 @@
 		  };
 		  firebase.initializeApp(config);
 		  var defaultDatabase = firebase.database();
+		  // var myDataRef = new firebase(config.databaseURL);
 		  $(document).ready(function(){
+		  	  var userRef = firebase.database().ref('users/');
+
 	          $("#addUser").on("submit", function(e){
 	          	e.preventDefault();
 	          });
@@ -38,11 +42,23 @@
 	          });
 	          function writeUserData(userId, name, age, job) {
 	          	console.log("userId: ",userId);
-				 firebase.database().ref('users/' + userId).set({
-				    username: name,
-				    age: age,
-				    job: job
-				});
+	          	// auto generate key way
+	          	var addUserRef = null;
+	          	if(autoGenKey==true){
+	          		addUserRef = userRef.push();
+		          	addUserRef.set({
+					    username: name,
+					    age: age,
+					    job: job
+					});
+	            }
+	            else{
+	            	firebase.database().ref('/users/' + userId).set({
+					    username: name,
+					    age: age,
+					    job: job
+					});
+	            }			
 			  }
 			  function getUserDataFromRemote(){
 			  	var userId = 4;
@@ -61,6 +77,16 @@
 			  		});
 			  	});
 			  }
+			  userRef.on('child_added', function(snapshot){
+			  	var user = snapshot.val();
+			  	console.log('child added!');
+			  	console.log(user);
+			  });
+			  userRef.on('child_changed', function(snapshot){
+			  	var user = snapshot.val();
+			  	console.log('child changed!');
+			  	console.log(user);
+			  });
 		  });
 		</script>
 	</head>
