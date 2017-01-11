@@ -91,14 +91,22 @@
 		</script>
 	</head>
 	<body>
-		<form class="container" id="addUser">
-			<label>Username</label>
-			<input type="text" name="username"/><br/>
-			<label>age</label>
-			<input type="number" name="age"/><br/>
-			<label>job</label>
-			<input type="text" name="job"/><br/>
-			<div class="btn btn-success" id="send">submit</div>
-		</form>
+		<div class="panel-body">
+			<form class="form" id="addUser">
+				<div class="form-group" >
+					<label class="form-label" style="display: inline-block;" for="input">Username:</label>
+					<input type="text" name="username"/>
+				</div>
+				<div class="form-group" >
+					<label class="form-label" style="display: inline-block;">age:</label>
+					<input type="number" name="age"/>
+				</div>
+				<div class="form-group" >
+				<label class="form-label" style="display: inline-block;">job</label>
+				<input type="text" name="job"/>
+				</div>
+				<div class="btn btn-success" id="send">submit</div>
+			</form>
+		</div>
 	</body>
 </html>
